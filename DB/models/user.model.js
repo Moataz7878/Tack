@@ -91,6 +91,10 @@ const userSchema = new Schema(
   isLoggeConfim:{
     type:Boolean,
     default:false
+  },
+  confirmTeachers:{
+    type:Boolean,
+    default:false
   }
 
 

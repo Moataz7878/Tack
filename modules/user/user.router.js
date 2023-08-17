@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GetallUser, governorates, grades, logOut, login, school, signUp, subjects } from "./user.controll.js";
+import { GetallUser, addSchool, addgrade, addsubjects, governorates, grades, logOut, login, school, signUp, subjects } from "./user.controll.js";
 import { validation } from "../validation/validation.js";
 import { loginValidation, signUpValidatinon } from "./user.validation.js";
 import { UsersOfTeacher, followTeacher, getSubject, getallInvitations, getallTeacherOfTheGrades, homePage, profileUser, schoolsToStudent, theInvitation, theSchool, thedegreeExam, thedegreeUsers } from "./Student.controll.js";
@@ -20,8 +20,11 @@ routerUser.post('/followTeacher',followTeacher)
 
 routerUser.get('/getallGovernorates',governorates)
 routerUser.post('/getallschool',school)
+routerUser.post('/addSchool',addSchool)
 routerUser.get('/getallgrades',grades)
+routerUser.post('/addgrade',addgrade)
 routerUser.get('/subjects',subjects)
+routerUser.post('/addsubjects',addsubjects)
 
 
 

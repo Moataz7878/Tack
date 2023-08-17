@@ -23,7 +23,7 @@ app.use(`${baseURL}/post`,routerpost)
 app.use(`${baseURL}/commint`,routercom)
 app.use(`${baseURL}/guard`,routerGuardian)
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Hello Worl!'))
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

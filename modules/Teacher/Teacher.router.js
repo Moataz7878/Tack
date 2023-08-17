@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TeacherOrders, TeacherOrdersMessage, addFolower, addQuestion, addconfirm, addexam, addgrades, cash_Withdrawal, confirmOrder, deleteExam, deleteQuestion, getallOrder, getallReceivablesPage, getallTeacherAddFolowers, getallTeacherPage, getallTeacherofStudent, getallTeacherofgrades, getallexam, getallexamsofgrades, updateExam, updateQuestion } from "./Teacher.controll.js";
+import { TeacherOrders, TeacherOrdersMessage, addAdvice, addFolower, addQuestion, addconfirm, addconfirmTeacher, addexam, addgrades, cash_Withdrawal, confirmOrder, deleteExam, deleteQuestion, getallAdvices, getallOrder, getallReceivablesPage, getallTeacherAddFolowers, getallTeacherPage, getallTeacherofStudent, getallTeacherofgrades, getallconfirmTeacher, getallexam, getallexamsofgrades, updateExam, updateQuestion } from "./Teacher.controll.js";
 import { fileUploud, validation_Array } from "../utils/multer.js";
 
 
@@ -47,6 +47,13 @@ routerpoll.post('/confirmOrder',fileUploud(validation_Array.image).single('img')
 routerpoll.post('/TeacherOrders',TeacherOrders)
 routerpoll.post('/TeacherOrdersMessage',TeacherOrdersMessage)
 
+
+routerpoll.get('/getallconfirmTeacher',getallconfirmTeacher)
+routerpoll.post('/addconfirmTeacher',addconfirmTeacher)
+
+
+routerpoll.post('/addAdvice',addAdvice)
+routerpoll.post('/getallAdvices',getallAdvices)
 
 
 

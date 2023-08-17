@@ -1,3 +1,6 @@
+import gradeModel from "../../DB/models/addgrade.model.js";
+import schoolModel from "../../DB/models/scholl.model.js";
+import subjectModel from "../../DB/models/subject.model.js";
 import userModel from "../../DB/models/user.model.js"
 import clodinary from "../utils/clodinary.js";
 import { compareFunction } from "../utils/hashFunction.js";
@@ -134,7 +137,10 @@ export const logOut = async (req, res, next) => {
 
 export const governorates =async(req,res,next)=>{
   try {
-    const governorate= ['Giza','Cairo','Alexandria','Aswan']
+    const governorate= ['Giza','Cairo','Alexandria','Aswan' ,'Shubra El-Kheima','Port Said',
+  'Suez','Luxor','al-Mansura','El-Mahalla El-Kubra','Tanta','Asyut','Ismailia','Fayyum0',
+'Zagazig','Damietta','Damanhur','al-Minya','Beni Suef','Qena','Sohag','Hurghada','Banha',
+'Kafr el-Sheikh','Arish','Marsa Matruh']
     return res.json({message:"Done", governorate})
   } catch (error) {
     return res.json({message:'Fail'})
@@ -144,25 +150,31 @@ export const governorates =async(req,res,next)=>{
 export const school =async(req,res,next)=>{
   try {
     const {governorate}=req.body
-    if (governorate == "Giza") {
-      const school =["Leading Egyption Language","Winners Language","Heritage International"]
-    return res.json({message:"Done", school})
+    let schools=[]
+    const school=await schoolModel.find({namegovernorate:governorate})
+    for (let i = 0; i < school.length; i++) {
+      const theSchool = school[i].nameSchool;
+      schools.push(theSchool)
+      
     }
-    if (governorate == "Cairo") {
-      const school =["El Araby School","Imam Muhammad Metwally Al-Shaarawy",
-    "production School of Applied" ,"Martyr Captain"]
-    return res.json({message:"Done", school})
-    }
-    if (governorate == "Alexandria") {
-      const school =["Industrial","Kafy Ashry professional","Ambrose professional Girls"]
-    return res.json({message:"Done", school})
-    }
-    if (governorate == "Aswan") {
-      const school =["Muhammad Hussein othman Preparatory","Friend Ship Division","Narth City Primary" ]
-    return res.json({message:"Done", school})
-    }
+
+    res.json({message:'Done',schools})
   } catch (error) {
     return res.json({message:'Fail'})
+  }
+}
+export const addSchool =async(req,res)=>{
+  try {
+    const {nameSchool ,namegovernorate}=req.body
+    const newSchool =new schoolModel({
+      nameSchool :  nameSchool,
+      namegovernorate   :    namegovernorate
+    })
+    const school =await newSchool.save()
+    res.json({message:'Done' ,school})
+  } catch (error) {
+    return res.json({message:'Fail catch'})
+    
   }
 }
 
@@ -176,21 +188,60 @@ export const grades =async(req,res)=>{
      "The Sixth grade of primary school",
      "The First grade of Preparatory School","The second grade of Preparatory School","The third grade of Preparatory School",
     "The First grade secondary","The second secondary grade","The Third grade secondary"]
+    const grades=await gradeModel.find()
+    for (let i = 0; i < grades.length; i++) {
+      const element = grades[i].namegrade
+      getallgrades.push(element)
+    }
     return res.json({message:"Done", getallgrades})
   } catch (error) {
     return res.json({message:'Fail'})
+  }
+}
+export const addgrade =async(req,res)=>{
+  try {
+    const {namegrade}=req.body
+    const newgrade =new gradeModel({
+      namegrade:namegrade
+    })
+    const grade =await newgrade.save()
+    res.json({message:'Done' ,grade})
+  } catch (error) {
+    return res.json({message:'Fail catch'})
+    
   }
 }
 
 
 export const subjects =async(req,res)=>{
   try {
-    const material= ["Arabic","Mathematics","Phtsics","Chemistry"]
+    const material= ["Arabic","Mathematics","Phtsics"]
+    const subjects=await subjectModel.find()
+    for (let i = 0; i < subjects.length; i++) {
+      const element = subjects[i].subject.toString();
+      material.push(element)
+    }
     return res.json({message:"Done", material})
   } catch (error) {
     return res.json({message:'Fail'})
   }
 }
+export const addsubjects =async(req,res)=>{
+  try {
+ const {nameSubject}=req.body
+ const newsubject=new subjectModel({
+  subject:nameSubject
+ })
+ const subject= await newsubject.save()
+
+    return res.json({message:"Done", subject})
+  } catch (error) {
+    return res.json({message:'Fail'})
+  }
+}
+
+
+
 //First grade of Preparatory School
 
 

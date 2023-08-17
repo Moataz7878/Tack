@@ -1,4 +1,5 @@
 import orderModel from "../../DB/models/Teacher_order.model.js";
+import adviceModel from "../../DB/models/advice.model.js";
 import cashModel from "../../DB/models/cash_Withdrawal.js";
 import examModel from "../../DB/models/exam.model.js";
 import degreenModel from "../../DB/models/examDegree.model.js";
@@ -12,7 +13,7 @@ import { nanoid } from "nanoid";
 export  const addgrades =async(req,res)=>{
   try {
     const {grades,subject_Name,createdby}=req.body
-    const Teacher =await userModel.findOne({_id:createdby ,role:"Teacher"})
+    const Teacher =await userModel.findOne({_id:createdby ,role:"Teacher" ,confirmTeachers:true})
     if (!Teacher) {
       return res.json({message:"fail id Teacher"})
     }
@@ -671,9 +672,81 @@ export const TeacherOrdersMessage =async(req,res)=>{
 
 
 
+export  const getallconfirmTeacher =async(req,res)=>{
+  try {
+    const teachers =await userModel.find({confirmTeachers:false ,role:"Teacher"})
+  if (!teachers.length) {
+    return res.json({message:'teachers no lenth'})
+  }
+
+  res.json({message:"Done",teachers})
+  } catch (error) {
+    console.log(error);
+    return res.json({message:'fail catch'})
+  }
+  }
 
 
 
+  export const addconfirmTeacher =async(req,res)=>{
+    try {
+      const {idTeacher , message}= req.body
+      const Teacher =await userModel.findOne({ _id:idTeacher ,role:"Teacher" ,confirmTeachers:false})
+      if (!Teacher) {
+        return res.json({message:"fail  Teacher"})
+      }
+      if (message == "confirm") {
+        Teacher.confirmTeachers = true
+        await Teacher.save()
+        return res.json({message:"Done confirm"})
+      }
+      
+      return res.json({message:"fail confirm"})
+      
+
+    } catch (error) {
+      return res.json({message:"fail catch"})
+    }
+  }
+
+  export const addAdvice =async(req,res)=>{
+    try {
+      const {body ,title ,to}=req.body
+
+      if (!(to=='Student' || to=='Teacher' || to=='Parent')) {
+        return res.json({message:'please enter  Student , Teacher , Parent'})
+      }
+
+      const newAdvice =new adviceModel({
+        body,
+        title,
+        to
+      })
+      const advice =await newAdvice.save()
+      return res.json({message:'Done',advice})
+    } catch (error) {
+      console.log(error);
+      return res.json({message:'fail catch'})
+    }
+  }
+
+  export const getallAdvices =async(req,res)=>{
+try {
+  const {id} =req.body
+  const user =await userModel.findOne({_id:id})
+  if (!user) {
+    return res.json({message:'fail id'})
+  }
+  const advices =await adviceModel.find({to:user.role})
+  if (!advices.length) {
+    return res.json({message:'there is no'})
+  }
+  return res.json({message:'Done',advices})
+} catch (error) {
+  console.log(error);
+  return res.json({message:'fail catch'})
+}
+  }
 
 
 
