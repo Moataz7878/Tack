@@ -696,8 +696,9 @@ export  const getallconfirmTeacher =async(req,res)=>{
         return res.json({message:"fail  Teacher"})
       }
       if (message == "confirm") {
-        Teacher.confirmTeachers = true
-        await Teacher.save()
+        await userModel.findOneAndUpdate({_id:idTeacher},{
+          confirmTeachers:true
+        })
         return res.json({message:"Done confirm"})
       }
       
