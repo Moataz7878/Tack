@@ -47,7 +47,8 @@ const newdegree =new degreenModel({
 if (!newdegree) {
   return res.json({message:"Fail degree"})
 }
- newdegree.save()
+
+await newdegree.save()
 res.json({message:"Done",theExam ,newdegree})
 
 } catch (error) {
@@ -394,29 +395,3 @@ export const getallTeacherOfTheGrades =async(req,res)=>{
       return res.json({message:'fail catch'})
     }
   }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

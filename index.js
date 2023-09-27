@@ -14,7 +14,7 @@ const app = express()
 app.use(cors());
 const port = process.env.PORT ||4500
 const baseURL ='/Node.js/api/v6'
-// app.use(json());
+app.use(json());
 connectionDB()
 
 app.use(`${baseURL}/use` ,routerUser)

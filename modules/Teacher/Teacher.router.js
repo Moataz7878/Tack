@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TeacherOrders, TeacherOrdersMessage, addAdvice, addFolower, addQuestion, addconfirm, addconfirmTeacher, addexam, addgrades, cash_Withdrawal, confirmOrder, deleteExam, deleteQuestion, getallAdvices, getallOrder, getallReceivablesPage, getallTeacherAddFolowers, getallTeacherPage, getallTeacherofStudent, getallTeacherofgrades, getallconfirmTeacher, getallexam, getallexamsofgrades, updateExam, updateQuestion } from "./Teacher.controll.js";
+import { TeacherOrders, TeacherOrdersMessage, addAdvice, addFolower, addQuestion, addQuestionVideo, addconfirm, addconfirmTeacher, addexam, addexamVideo, addgrades, cashVideoUser, cash_Withdrawal, confirmOrder, confirmcashVideo, createGradeVideo, createvideo, degreeExamVideo, deleteExam, deleteExamVideo, deleteGradeVideo, deleteQuestion, deleteQuestionVideo, deleteVideo, gatallCashVideo, gatallVideoTeachertoUser, getallAdvices, getallGradeVideo, getallIdUser, getallOrder, getallReceivablesPage, getallTeacherAddFolowers, getallTeacherPage, getallTeacherofStudent, getallTeacherofgrades, getallVideoTeacher, getallconfirmTeacher, getallexam, getallexamQuestionVideo, getallexamsofgrades, getallteavhersGradesVideoUser, getalltreacherGradesVideo, updateExam, updateExamVideo, updateGradeVideo, updateQuestion, updateQuestionVideo, updateVideo } from "./Teacher.controll.js";
 import { fileUploud, validation_Array } from "../utils/multer.js";
 
 
@@ -56,6 +56,52 @@ routerpoll.post('/addAdvice',addAdvice)
 routerpoll.post('/getallAdvices',getallAdvices)
 
 
+//////////////////////////Update////////////////////////////////////////
+routerpoll.post('/createGradeVideo',createGradeVideo)
+routerpoll.delete('/deleteGradeVideo',deleteGradeVideo)
+routerpoll.put('/updateGradeVideo',updateGradeVideo)
+routerpoll.post('/getallGradeVideo',getallGradeVideo)
+
+
+
+///
+routerpoll.post('/createvideo',fileUploud(validation_Array.video).single('img'),createvideo)
+routerpoll.delete('/deleteVideo',deleteVideo)
+routerpoll.put('/updateVideo',updateVideo)
+routerpoll.post('/getallVideoTeacher',getallVideoTeacher)
+routerpoll.post('/getalltreacherGradesVideo',getalltreacherGradesVideo)
+///
+
+routerpoll.post('/addexamVideo',addexamVideo)
+routerpoll.delete('/deleteExamVideo',deleteExamVideo)
+routerpoll.put('/updateExamVideo',updateExamVideo)
+routerpoll.post('/getallexamQuestionVideo',getallexamQuestionVideo)
+
+////
+
+routerpoll.post('/addQuestionVideo',fileUploud(validation_Array.image).single('img'),addQuestionVideo)
+routerpoll.delete('/deleteQuestionVideo',deleteQuestionVideo)
+routerpoll.put('/updateQuestionVideo',fileUploud(validation_Array.image).single('img'),updateQuestionVideo)
+
+//////
+routerpoll.post('/gatallVideoTeachertoUser',gatallVideoTeachertoUser)
+routerpoll.post('/cashVideoUser',fileUploud(validation_Array.image).single('img'),cashVideoUser)
+
+routerpoll.post('/gatallCashVideo',gatallCashVideo)
+
+routerpoll.put('/confirmcashVideo',confirmcashVideo)
+
+routerpoll.post('/getallteavhersGradesVideoUser',getallteavhersGradesVideoUser)
+
+routerpoll.post('/getallIdUser',getallIdUser)
+
+//////
+routerpoll.post('/degreeExamVideo',degreeExamVideo)
+
+
+
+
+
 
 
 
@@ -64,9 +110,6 @@ routerpoll.post('/getallAdvices',getallAdvices)
 
 
 export {routerpoll}
-
-
-
 
 
 

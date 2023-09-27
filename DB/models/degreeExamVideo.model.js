@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-const degreeSchema = new Schema(
+const degreeExamVideoSchema = new Schema(
   {
     degree:{
         type :Number,
@@ -13,7 +13,12 @@ const degreeSchema = new Schema(
     },
   idexam: {
         type:Schema.Types.ObjectId,
-        ref:'exam',
+        ref:'examVideo',
+        require:true
+},
+  idVideo: {
+        type:Schema.Types.ObjectId,
+        ref:'video',
         require:true
 }
   },
@@ -21,5 +26,5 @@ const degreeSchema = new Schema(
     timestamps: true,
   }
 );
-const degreenModel = model("degree", degreeSchema);
-export default degreenModel;
+const degreeExamVideoModel = model("degreeVideo", degreeExamVideoSchema);
+export default degreeExamVideoModel;
