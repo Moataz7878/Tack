@@ -1288,8 +1288,13 @@ res.json({message:"Done",theCashVideo})
 
       export const gatallCashVideo=async(req,res)=>{
         try {
-          const {idTeacher}=req.body
-          const getallCachVideo =await cashVideoModel.find({idTeacher ,confirmed:false})
+          const getallCachVideo =await cashVideoModel.find({confirmed:false}).populate([{
+            path:'idTeacher'
+          },{
+            path:'idUser'
+          },{
+            path:'idgrades'
+          }])
           if (! getallCachVideo.length) {
             return res.json({message:"fail cach video teacher"})
           }

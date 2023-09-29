@@ -87,7 +87,7 @@ routerpoll.put('/updateQuestionVideo',fileUploud(validation_Array.image).single(
 routerpoll.post('/gatallVideoTeachertoUser',gatallVideoTeachertoUser)
 routerpoll.post('/cashVideoUser',fileUploud(validation_Array.image).single('img'),cashVideoUser)
 
-routerpoll.post('/gatallCashVideo',gatallCashVideo)
+routerpoll.get('/gatallCashVideo',gatallCashVideo)
 
 routerpoll.put('/confirmcashVideo',confirmcashVideo)
 
