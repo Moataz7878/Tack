@@ -1288,7 +1288,7 @@ res.json({message:"Done",theCashVideo})
 
       export const gatallCashVideo=async(req,res)=>{
         try {
-          const getallCachVideo =await cashVideoModel.find({confirmed:false}).populate([{
+          const getallCachVideo =await cashVideoModel.find().populate([{
             path:'idTeacher'
           },{
             path:'idUser'
