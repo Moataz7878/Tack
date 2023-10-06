@@ -462,10 +462,14 @@ export const getallReceivablesPage =async(req,res)=>{
     const {idTeacher} =req.body
     let data =[]
     let all =[]
+    let dateUserVideo =[]
     const Teacher =await userModel.findOne({_id:idTeacher ,role:"Teacher"}).select('follow material profile_pic  name addFolowers aitashab Equation')
     if (!Teacher) {
       return res.json({message:"fail id Teacher"})
     }
+    const cachVideo = await cashVideoModel.find({idTeacher:Teacher._id ,confirmed:true})
+    console.log(cachVideo.length);
+
     const ReceivablesPage =await examModel.find({createdby:idTeacher}).select('creatdUser')
     if(!ReceivablesPage){
       return res.json({message:"fail Id exam "})
@@ -474,28 +478,25 @@ export const getallReceivablesPage =async(req,res)=>{
       const element = ReceivablesPage[i].creatdUser ;
       const x= element.length
       all.push(x)
-
       
     }
-      console.log(all);
+      // console.log(all);
 
 //  عدد المشاهدات
       let result = all.reduce((sum, current) => sum + current);
-      
-console.log(result);
-console.log(Teacher.aitashab);
-console.log(Teacher.addFolowers);
+      // console.log(result);
+// console.log(result);
+// console.log(Teacher.aitashab);
+// console.log(Teacher.addFolowers);
 
-const equation = result * 1 - Teacher.aitashab - Teacher.addFolowers
-
- console.log("equation" , equation);
-await userModel.findOneAndUpdate({_id:Teacher._id},{
+const equation =((cachVideo.length || 0 )* 200)- Teacher.aitashab - Teacher.addFolowers 
+  await userModel.findOneAndUpdate({_id:Teacher._id},{
   Equation:equation
 },{
   new :true
 })
-
-    data.push({Teacher,result,equation})
+const usersVideo =cachVideo.length
+    data.push({Teacher,equation ,usersVideo})
 
   
     res.json({message:"Done",data})
